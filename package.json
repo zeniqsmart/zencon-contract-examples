@@ -1,0 +1,24 @@
+{
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "truffle build",
+    "test": "truffle test --network development",
+    "deploy": "truffle migrate --network zsc"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
+    "@truffle/hdwallet-provider": "^2.0.4",
+    "bn.js": "^5.2.0",
+    "web3": "^1.7.0"
+  },
+  "devDependencies": {
+    "base-58": "^0.0.1",
+    "elliptic": "^6.5.4",
+    "keccak256": "^1.0.6",
+    "secp256k1": "^4.0.3",
+    "truffle": "5.4.30"
+  }
+}
