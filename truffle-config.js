@@ -18,8 +18,7 @@ module.exports = {
             port: 8545,            // Standard Ethereum port (default: none)
             network_id: "*",       // Any network (default: none)
         },
-        zsc: { // configuration for Zeniq Smart Chain
-            // visit https://www.zeniq.dev/ for more information about the Zeniq Smart Chain
+        zsc: { // configuration for ZENIQ Smart Chain
            provider: () => new HDWalletProvider(mnemonic, 'http://85.209.55.34:8545'),
            network_id: 383414847825
         },
