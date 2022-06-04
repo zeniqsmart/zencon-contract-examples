@@ -25,7 +25,8 @@ module.exports = {
         },
         zsc: { // configuration for ZENIQ Smart Chain
            provider: () => new HDWalletProvider(mnemonic, zscURL),
-           network_id: zscChainID
+           network_id: zscChainID,
+           gasPrice: 10
         },
     },
 
