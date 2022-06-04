@@ -8,19 +8,24 @@ const mnemonic = "grab welcome suffer position clap strong vacuum junk kind chap
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
+//const zscURL = "http://85.209.55.34:8545";
+//const zscURL = "http://185.38.36.238:8545";
+const zscURL = "http://45.156.242.52:8545";
+const zscChainID = 383414847825;
+
 module.exports = {
     networks: {
         // Useful for testing. The `development` name is special - truffle uses it by default
         // if it's defined here and no other network is specified at the command line.
         // You should run a client (like ganache-cli, geth or parity) in a separate terminal.
         development: {
-            host: "127.0.0.1",     // Localhost (default: none)
-            port: 8545,            // Standard Ethereum port (default: none)
-            network_id: "*",       // Any network (default: none)
+            host: "127.0.0.1",
+            port: 8545,
+            network_id: "*",
         },
         zsc: { // configuration for ZENIQ Smart Chain
-           provider: () => new HDWalletProvider(mnemonic, 'http://85.209.55.34:8545'),
-           network_id: 383414847825
+           provider: () => new HDWalletProvider(mnemonic, zscURL),
+           network_id: zscChainID
         },
     },
 
