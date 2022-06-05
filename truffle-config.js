@@ -1,17 +1,15 @@
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-
-// replace this mnemonic with your own mnemonic
-const mnemonic = "grab welcome suffer position clap strong vacuum junk kind chapter clay valid";
-
-// use a ".secret" file to avoid committing a mnemonic into Git
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const fs = require("fs");
+const path = require("path");
 
 const zscURL = "https://smart1.zeniq.network:9545";
 //const zscURL = "https://smart2.zeniq.network:9545";
 //const zscURL = "https://smart3.zeniq.network:9545";
 const zscChainID = 383414847825;
+
+// create a .secret file to hold your 12 words
+const pathToMnemonics = path.resolve(".secret");
 
 module.exports = {
     networks: {
@@ -24,9 +22,11 @@ module.exports = {
             network_id: "*",
         },
         zsc: { // configuration for ZENIQ Smart Chain
-           provider: () => new HDWalletProvider(mnemonic, zscURL),
-           network_id: zscChainID,
-           gasPrice: 10
+           provider: () => {
+               const mnemonic = fs.readFileSync(pathToMnemonics).toString().trim();
+               return new HDWalletProvider(mnemonic, zscURL);
+           },
+           network_id: zscChainID
         },
     },
 
