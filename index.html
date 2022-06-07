@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Web 3 Demo</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <script src='node_modules/web3/dist/web3.min.js'></script>
+</head>
+
+<body>
+
+Web 3 Demo
+<br >
+<button onclick="printCoolNumber();">Print Cool Number</button>
+<button onclick="changeCoolNumber();">Change Cool Number</button>
+<br /><br />
+Status: <span id="status">Loading...</span>
+
+<script type="text/javascript">
+    async function loadWeb3() {
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            console.log("window.ethereum", window.ethereum);
+            window.ethereum.enable();
+        }
+    }
+
+    async function loadContract() {
+        return await new window.web3.eth.Contract([
+            {
+                "inputs": [],
+                "name": "coolNumber",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "_coolNumber",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "setCoolNumber",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }
+        ], '0x08e37dbc0cd086dd0ed6e57a67b3ab45fc7b122c');
+    }
+
+    async function printCoolNumber() {
+        updateStatus('fetching Cool Number...');
+        const coolNumber = await window.contract.methods.coolNumber().call();
+        updateStatus(`coolNumber: ${coolNumber}`);
+    }
+
+    async function getCurrentAccount() {
+        const accounts = await window.web3.eth.getAccounts();
+        return accounts[0];
+    }
+
+    async function changeCoolNumber() {
+        const value = Math.floor(Math.random() * 100);
+        updateStatus(`Updating coolNumber with ${value}`);
+        const account = await getCurrentAccount();
+        const coolNumber = await window.contract.methods.setCoolNumber(value).send({ from: account });
+        updateStatus('Updated.');
+    }
+
+    async function load() {
+        await loadWeb3();
+        window.contract = await loadContract();
+        updateStatus('Ready!');
+    }
+
+    function updateStatus(status) {
+        const statusEl = document.getElementById('status');
+        statusEl.innerHTML = status;
+        console.log(status);
+    }
+
+    load();
+</script>
+</body>
+
+</html>
