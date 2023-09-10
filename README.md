@@ -1,3 +1,9 @@
+# Deprecation notice
+
+This repository has been deprecated in favor of https://github.com/zeniqsmart/distributor-contract-hardhat.
+The truffle project setup in this repository is no longer maintained.
+If you are starting a new project on the ZENIQ Smartchain, then we recommend using hardhat instead of truffle.
+
 # Zencon Contract Example
 
 This repository implements "reward-NFTs" that can be used as vouchers or gift cards.
